@@ -96,7 +96,9 @@ ADD     ./nginx/nginx.conf /etc/nginx/nginx.conf
 RUN     mkdir /var/log/supervisor
 ADD     ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-
+# Add startup script to run supervisor and zabbix datasource
+ADD     ./files/run.sh /run.sh
+RUN   chmod 700 /run.sh
 # ---------------- #
 #   Expose Ports   #
 # ---------------- #
@@ -121,4 +123,4 @@ EXPOSE 2003
 #   Run!   #
 # -------- #
 
-CMD     ["/usr/bin/supervisord", "--nodaemon", "--configuration", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD     ["/bin/bash", "/run.sh"]
